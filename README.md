@@ -1,5 +1,8 @@
 # Assignment 2 — Path Traversal Vulnerability Demonstration
 
+Group No - 16 
+Problem No - 5 ( Path Traversal )
+
 ## Project Overview
 
 This project is a simple **File Viewer** web application built with Node.js and Express. It allows users to browse and read text documents stored on the server. The application deliberately contains a **Path Traversal** vulnerability to demonstrate how this class of security flaw works in real-world web applications.
@@ -43,14 +46,6 @@ npm start
 # 3. Open in browser
 # http://localhost:3000
 ```
-
----
-
-## Application Functionality and Code Walkthrough
-
-### Intended Purpose
-
-The application is meant to be a simple document viewer. Users can see a list of text files stored in the `files/` folder on the server and view their contents through the browser.
 
 ---
 
