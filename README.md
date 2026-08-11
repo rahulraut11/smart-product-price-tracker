@@ -54,32 +54,10 @@ The application is meant to be a simple document viewer. Users can see a list of
 
 ---
 
-## The Vulnerability — Path Traversal
+## Technologies Used
 
-### What Is Path Traversal?
-
-Path Traversal (also known as Directory Traversal or dot-dot-slash attack) is a web security vulnerability that occurs when an application accepts a filename or file path from user input and uses it to access files on the server's filesystem **without properly validating or restricting it** to the intended directory.
-
-Every filesystem uses `../` (or `..\` on Windows) to mean "go up one directory." If a web application blindly appends user input to a base directory path, an attacker can include `../` sequences to **climb out** of the intended folder and reach any file on the server that the application process has permission to read.
-
-### Why Does It Occur?
-
-The root cause is **trusting user input without validation**. Developers often assume users will only provide simple filenames like `report.txt`, but an attacker can supply crafted input like `../../../etc/passwd` to navigate the filesystem. The vulnerability occurs when:
-
-- User-supplied filenames are directly concatenated or joined with a base directory path.
-- No checks are performed to ensure the final resolved path stays within the intended directory.
-- Characters like `../`, `..\`, or encoded variants (`%2e%2e%2f`) are not stripped or blocked.
-
-### How It Is Exploited in Real Applications
-
-In real-world scenarios, path traversal is commonly exploited to:
-
-- **Read sensitive configuration files** — Attackers access files like `/etc/passwd`, `/etc/shadow`, `.env`, or `web.config` to obtain credentials and system information.
-- **Read application source code** — By traversing to the application's own directory, attackers can read server-side code, discover further vulnerabilities, and find hardcoded secrets.
-- **Access log files** — Server logs can reveal user data, session tokens, and internal system details.
-- **Exfiltrate data** — Any file readable by the server process can be stolen, including databases, private keys, and backup files.
-
-This vulnerability has appeared in many real-world CVEs and is listed in the OWASP Top 10 under "Broken Access Control."
+- **Backend:** Node.js, Express.js
+- **Frontend:** HTML, CSS, JavaScript (Vanilla)
 
 ---
 
@@ -188,11 +166,33 @@ if (!allowedFiles.includes(filename)) {
   return res.status(403).json({ error: "Access denied" });
 }
 ```
+
+## The Vulnerability — Path Traversal
+
+### What Is Path Traversal?
+
+Path Traversal (also known as Directory Traversal or dot-dot-slash attack) is a web security vulnerability that occurs when an application accepts a filename or file path from user input and uses it to access files on the server's filesystem **without properly validating or restricting it** to the intended directory.
+
+Every filesystem uses `../` (or `..\` on Windows) to mean "go up one directory." If a web application blindly appends user input to a base directory path, an attacker can include `../` sequences to **climb out** of the intended folder and reach any file on the server that the application process has permission to read.
+
+### Why Does It Occur?
+
+The root cause is **trusting user input without validation**. Developers often assume users will only provide simple filenames like `report.txt`, but an attacker can supply crafted input like `../../../etc/passwd` to navigate the filesystem. The vulnerability occurs when:
+
+- User-supplied filenames are directly concatenated or joined with a base directory path.
+- No checks are performed to ensure the final resolved path stays within the intended directory.
+- Characters like `../`, `..\`, or encoded variants (`%2e%2e%2f`) are not stripped or blocked.
+
+### How It Is Exploited in Real Applications
+
+In real-world scenarios, path traversal is commonly exploited to:
+
+- **Read sensitive configuration files** — Attackers access files like `/etc/passwd`, `/etc/shadow`, `.env`, or `web.config` to obtain credentials and system information.
+- **Read application source code** — By traversing to the application's own directory, attackers can read server-side code, discover further vulnerabilities, and find hardcoded secrets.
+- **Access log files** — Server logs can reveal user data, session tokens, and internal system details.
+- **Exfiltrate data** — Any file readable by the server process can be stolen, including databases, private keys, and backup files.
+
+This vulnerability has appeared in many real-world CVEs and is listed in the OWASP Top 10 under "Broken Access Control."
+
 ---
 
-## Technologies Used
-
-- **Backend:** Node.js, Express.js
-- **Frontend:** HTML, CSS, JavaScript (Vanilla)
-
----
