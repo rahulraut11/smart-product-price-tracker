@@ -1,7 +1,7 @@
 # Assignment 2 — Path Traversal Vulnerability Demonstration
 
-### Group No - 16
-### Problem No - 5 ( Path Traversal )
+Group No - 16 
+Problem No - 5 ( Path Traversal )
 
 ## Project Overview
 
